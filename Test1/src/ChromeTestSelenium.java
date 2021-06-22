@@ -1,9 +1,9 @@
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.*;
+import scanner.scanner;
 
 public class ChromeTestSelenium {
 	public static WebDriver driver;
@@ -15,17 +15,19 @@ public class ChromeTestSelenium {
 		// connection to salesforce
 		System.setProperty("webdriver.chrome.driver","D:\\TestSelenium\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get("https://bcaexpertise--int.my.salesforce.com/");
+		String environnement = scanner.saisirEnvironnement();
+		driver.get("https://bcaexpertise"+environnement+".my.salesforce.com/");
 		driver.manage().window().maximize();
 		driver.findElement(By.xpath("//button[@class='button mb24 secondary wide']")).click();
 		
+		/*
 		//house connection
 		String username = "julien.chauvette@bca.fr";
 		String password = "JCGEBCA";
 		driver.findElement(By.xpath("//input[@name='UserName']")).sendKeys(username);
 		driver.findElement(By.xpath("//input[@name='Password']")).sendKeys(password);
 		driver.findElement(By.xpath("//span[@id='submitButton']")).click();
-		
+		*/
 		
 		// Set Base URL
 		URL currentUrl = new URL(driver.getCurrentUrl());
@@ -34,7 +36,8 @@ public class ChromeTestSelenium {
 		TestMessage testmsg= new TestMessage();
 		
 		// Open the messaging service
-		testmsg.AccessMsg(driver);
+		String numDossier =scanner.saisirDossier();
+		testmsg.AccessMsg(driver,numDossier);
 		Thread.sleep(2000);
 		
 		//MAIL

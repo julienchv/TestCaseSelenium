@@ -6,17 +6,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import DemandeEnlevement.DemandeEnlevement;
 
 public class TestMessage {
 	
-	public void AccessMsg(WebDriver driver) throws MalformedURLException, InterruptedException{		
+	public void AccessMsg(WebDriver driver,String dossier) throws MalformedURLException, InterruptedException{		
 		//select the file 
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//a[text()='00001819']")).click();
+		driver.findElement(By.xpath("//a[text()='"+dossier+"']")).click();
 		
 		//click on message to open the window				
 		Thread.sleep(2000);
