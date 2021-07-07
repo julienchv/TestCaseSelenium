@@ -50,9 +50,9 @@ public class DemandeEnlevement {
 		//Choose which best bidder or none
 		String endTheDmd=bundle.getString("nextPart");
 		String receipt =bundle.getString("boutton");
-		demande.dmdEnlBstBidder(driver, endTheDmd,receipt);
 		String departement=bundle.getString("département");	
-		//demande.dmdEnlNone(driver,departement,endTheDmd,receipt);
+		String bidder=bundle.getString("Offrant");
+		demande.dmdEnlgen(driver, endTheDmd, receipt, bidder, departement);
 		
 	}
 
