@@ -2,7 +2,7 @@ package DemandeEnlevement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.ResourceBundle;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,17 +17,21 @@ public class DemandeEnlevement {
 		// connection to salesforce
 		System.setProperty("webdriver.chrome.driver","D:\\TestSelenium\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get("https://bcaexpertise--int.my.salesforce.com/");
+		ResourceBundle bundle = ResourceBundle.getBundle("properties.config");		
+		String environnement = bundle.getString("environnement");
+		driver.get("https://bcaexpertise"+environnement+".my.salesforce.com/");
 		driver.manage().window().maximize();
 		driver.findElement(By.xpath("//button[@class='button mb24 secondary wide']")).click();
-				
-		//house connection
-		String username = "julien.chauvette@bca.fr";
-		String password = "JCGEBCA";
-		driver.findElement(By.xpath("//input[@name='UserName']")).sendKeys(username);
-		driver.findElement(By.xpath("//input[@name='Password']")).sendKeys(password);
-		driver.findElement(By.xpath("//span[@id='submitButton']")).click();
-				
+		String connexion=bundle.getString("connexion");
+		
+		if(connexion.equals("maison")) {					
+			//house connection
+			String username =bundle.getString("username");
+			String password =bundle.getString("password");
+			driver.findElement(By.xpath("//input[@name='UserName']")).sendKeys(username);
+			driver.findElement(By.xpath("//input[@name='Password']")).sendKeys(password);
+			driver.findElement(By.xpath("//span[@id='submitButton']")).click();
+		}
 				
 		// Set Base URL
 		URL currentUrl = new URL(driver.getCurrentUrl());
@@ -35,14 +39,21 @@ public class DemandeEnlevement {
 				
 		//Open the Demande d'enlèvement window
 		TestDmdEnl demande= new TestDmdEnl();
-		demande.AccessDmdEnl(driver);
+		String numDossier =bundle.getString("numéroDossier");
+		demande.AccessDmdEnl(driver, numDossier);
+		
+		// prepare the file
+		Thread.sleep(2000);
+		demande.preparationDmd(driver);
+		Thread.sleep(2000);
 		
 		//Choose which best bidder or none
-		String endTheDmd="Send"; // You have to choose between "Send" or "Delete"
-		String receipt ="Attestation"; //You have to choose between "Attestation", "Impossibilite" or "Cancel"
+		String endTheDmd=bundle.getString("nextPart");
+		String receipt =bundle.getString("boutton");
 		demande.dmdEnlBstBidder(driver, endTheDmd,receipt);
-		String departement= "93";	
+		String departement=bundle.getString("département");	
 		//demande.dmdEnlNone(driver,departement,endTheDmd,receipt);
+		
 	}
 
 }
