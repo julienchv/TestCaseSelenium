@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class TestDmdEnl {
 	
 	public void AccessDmdEnl(WebDriver driver,String dossier) throws MalformedURLException, InterruptedException{		
@@ -32,8 +31,13 @@ public class TestDmdEnl {
 		driver.get(linkListMessage);
 		
 	}
-	public void preparationDmd(WebDriver driver) throws InterruptedException {
+		public void preparationDmd(WebDriver driver) throws InterruptedException {
 		
+		WebElement scrollBar= driver.findElement(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]"));	
+		for(int i=0;i<=50;i++) {
+			scrollBar.sendKeys(Keys.PAGE_DOWN);
+		}	
+		Thread.sleep(2000);
 		List <WebElement> list =driver.findElements(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr"));		
 		for(int i=1;i<=list.size();i++) {
 			String elements="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[";			
@@ -42,34 +46,44 @@ public class TestDmdEnl {
 				default:
 					break;
 				case "Brouillon","En cours":
+					String nom=driver.findElement(By.xpath(elements+i+"]/th/span/a")).getText();
+					System.out.println(nom);
 					driver.findElement(By.xpath(elements+i+"]/th/span/a")).click();
 					driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 					driver.findElement(By.xpath("//button[text()='Abandonner la demande']")).click();
 					Thread.sleep(3000);
-					driver.findElement(By.xpath("//button[@title='Fermer Enlèvement conservatoire']")).click();
+					driver.findElement(By.xpath("//button[@title='Fermer "+nom+"']")).click();
 					driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 					driver.findElement(By.xpath("//button[@title='Actualiser']")).click();
+					Thread.sleep(2000);
+					list =driver.findElements(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr"));
 					break;
 				case "En anomalie":	
+					nom=driver.findElement(By.xpath(elements+i+"]/th/span/a")).getText();
 					driver.findElement(By.xpath(elements+i+"]/th/span/a")).click();
-					driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 					driver.findElement(By.xpath("//button[text()='Abandonner la demande']")).click();
 					Thread.sleep(3000);
-					driver.findElement(By.xpath("//button[@title='Fermer Enlèvement conservatoire']")).click();
+					driver.findElement(By.xpath("//button[@title='Fermer "+nom+"']")).click();
 					driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 					driver.findElement(By.xpath("//button[@title='Actualiser']")).click();
+					Thread.sleep(2000);
+					list =driver.findElements(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr"));
+					
 					break;
 				case"Envoyée":
+					nom=driver.findElement(By.xpath(elements+i+"]/th/span/a")).getText();
 					driver.findElement(By.xpath(elements+i+"]/th/span/a")).click();
 					driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-					driver.findElement(By.xpath("//button[text()='Envoyer annulation']")).click();
+					driver.findElement(By.xpath("//button[text()='Envoyer annulation']")).click();				
 					Thread.sleep(3000);
-					driver.findElement(By.xpath("//button[@title='Fermer Enlèvement conservatoire']")).click();
+					driver.findElement(By.xpath("//button[@title='Fermer "+nom+"']")).click();
 					driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 					driver.findElement(By.xpath("//button[@title='Actualiser']")).click();
-					break;				
-			}
-			
+					Thread.sleep(2000);
+					list =driver.findElements(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr"));
+					break;									
+			}			
 		}	
 	}	
 	
@@ -147,7 +161,7 @@ public class TestDmdEnl {
 			//Check the status
 			
 			Thread.sleep(3000);
-			String xpsts ="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[3]/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-demande_-enlevement_ou_-restitution___-demande-enlevement__c___-v-i-e-w/forcegenerated-flexipage_demande_enlevement_ou_restitution_demandeenlevement__c__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[1]/slot/slot/flexipage-component2[1]/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_demandeenlevement__c___0125i000000hxftqaw___compact___view___recordlayout2/force-highlights2/div[1]/div[2]/slot/slot/force-highlights-details-item[2]/div/p[2]/slot/lightning-formatted-text";
+			String xpsts ="//force-highlights-details-item[2]/div/p/slot/lightning-formatted-text";
 			String status= driver.findElement(By.xpath(xpsts)).getText();
 			System.out.println(status);
 		}
@@ -157,8 +171,8 @@ public class TestDmdEnl {
 			Thread.sleep(10000);
 			
 			//Check the status
-
-			String xpsts ="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[3]/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-demande_-enlevement_ou_-restitution___-demande-enlevement__c___-v-i-e-w/forcegenerated-flexipage_demande_enlevement_ou_restitution_demandeenlevement__c__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[1]/slot/slot/flexipage-component2[1]/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_demandeenlevement__c___0123o000000dwuvqa0___compact___view___recordlayout2/force-highlights2/div[1]/div[2]/slot/slot/force-highlights-details-item[2]/div/p[2]/slot/lightning-formatted-text";							
+																															
+			String xpsts ="//force-highlights-details-item[2]/div/p/slot/lightning-formatted-text";							
 			String status= driver.findElement(By.xpath(xpsts)).getText();
 			System.out.println(status);
 			

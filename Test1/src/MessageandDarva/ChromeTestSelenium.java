@@ -24,7 +24,7 @@ public class ChromeTestSelenium {
 		driver.findElement(By.xpath("//button[@class='button mb24 secondary wide']")).click();
 		String connexion=bundle.getString("connexion");
 		
-		if(connexion.equals(connexion)) {			
+		if(connexion.equals("maison")) {			
 			//house connection
 			String username =bundle.getString("username");
 			String password =bundle.getString("password");
@@ -54,7 +54,7 @@ public class ChromeTestSelenium {
 		String bodyMsg= "Ceci est un test";
 		//testmsg.darvaSD99Solaris(driver);		
 		//Thread.sleep(3000);
-		testmsg.darvaSD99Com(driver, bodyMsg);
+		//testmsg.darvaSD99Com(driver, bodyMsg);
 		//Thread.sleep(3000);
 		//testmsg.darvaSD04Cont(driver);
 		//Thread.sleep(3000);

@@ -36,7 +36,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 				
 		// Mail
-		Thread.sleep(2000);		
+		Thread.sleep(4000);		
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.DOWN);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
@@ -44,8 +44,9 @@ public class TestMessage {
 		//complete sender		
 		String adresse = driver.findElement(By.xpath("//input[@name='expediteur']")).getAttribute("value");	
 		if(adresse.equals("")) {
-			driver.findElement(By.xpath("//input[@name='expediteur']")).click();			
-		}		
+			driver.findElement(By.xpath("//input[@name='expediteur']")).click();
+			driver.findElement(By.xpath("//input[@name='expediteur']")).sendKeys(Keys.RETURN);
+		}
 		
 		// Complete recipient
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -76,6 +77,7 @@ public class TestMessage {
 		action.moveToElement(element).click().perform();
 		
 		Thread.sleep(5000);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		String MAIL="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/div/div/div/ul[2]/li[4]/a";
 		driver.findElement(By.xpath(MAIL)).click();
 		String xpsts="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[3]/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-message___-message__c___-v-i-e-w/forcegenerated-flexipage_message_message__c__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[1]/slot/slot/flexipage-component2/slot/records-lwc-highlights-panel/records-lwc-record-layout/forcegenerated-highlightspanel_message__c___012000000000000aaa___compact___view___recordlayout2/force-highlights2/div[1]/div[2]/slot/slot/force-highlights-details-item[2]/div/p[2]/slot/lightning-formatted-text";
@@ -90,7 +92,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -125,7 +127,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();		
 		
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -142,7 +146,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -170,7 +174,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();
 		
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();	
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -185,7 +191,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -199,7 +205,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();
 				
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -214,7 +222,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -233,11 +241,15 @@ public class TestMessage {
 		driver.findElement(By.xpath("//textarea[@name='comments']")).sendKeys(bodymsg);
 		
 		// Send
-		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();		
+		JavascriptExecutor js =(JavascriptExecutor)driver;
+		WebElement env=driver.findElement(By.xpath("//button[@title='Envoyer']"));	
+		js.executeScript("arguments[0].scrollIntoView()", env);
+		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();
 		
 		//Check if the message is visible on the open screen name messages
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();	
-		Thread.sleep(500);
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -252,7 +264,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -272,7 +284,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='OK']")).click();	
 		
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -288,7 +302,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -302,7 +316,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();
 		
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";
@@ -317,7 +333,7 @@ public class TestMessage {
 		driver.findElement(By.xpath("//*[@id=\"brandBand_3\"]/div/div/div/div[1]/div[1]/div[2]/ul/li/a")).click();
 		
 		// DARVA
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).click();
 		driver.findElement(By.xpath("//input[@placeholder='Sélectionner un canal']")).sendKeys(Keys.ENTER);
 		
@@ -331,7 +347,9 @@ public class TestMessage {
 		driver.findElement(By.xpath("//button[@title='Envoyer']")).click();	
 		
 		//Check if the message is visible on the open screen name messages
-		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//button[@name='refreshButton']")).click();
+		Thread.sleep(2000);
 		String xpsts = "/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[6]/span/span";
 		String status= driver.findElement(By.xpath(xpsts)).getText();
 		String xpname="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/th/span/a";

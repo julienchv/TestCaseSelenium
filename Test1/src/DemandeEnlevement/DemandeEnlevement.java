@@ -41,7 +41,7 @@ public class DemandeEnlevement {
 		TestDmdEnl demande= new TestDmdEnl();
 		String numDossier =bundle.getString("numéroDossier");
 		demande.AccessDmdEnl(driver, numDossier);
-		
+				
 		// prepare the file
 		Thread.sleep(2000);
 		demande.preparationDmd(driver);

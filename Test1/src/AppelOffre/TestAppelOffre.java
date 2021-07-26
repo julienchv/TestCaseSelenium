@@ -23,7 +23,7 @@ public class TestAppelOffre {
 		driver.findElement(By.xpath("//button[@class='button mb24 secondary wide']")).click();
 		String connexion=bundle.getString("connexion");
 		
-		if(connexion.equals(connexion)) {				
+		if(connexion.equals("maison")) {				
 			//house connection
 			String username =bundle.getString("username");
 			String password =bundle.getString("password");
@@ -36,7 +36,7 @@ public class TestAppelOffre {
 		URL currentUrl = new URL(driver.getCurrentUrl());
 		
 		baseUrl = currentUrl.getProtocol() + "://" + currentUrl.getHost();
-		CreateAppelOffre aploffre=new CreateAppelOffre();
+		CreateAppelOffre aploffre=new CreateAppelOffre();		
 		
 		//Access request for proposals
 		String act =bundle.getString("act");

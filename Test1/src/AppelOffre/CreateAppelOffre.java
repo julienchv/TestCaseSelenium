@@ -10,21 +10,45 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import java.text.*;
+
 public class CreateAppelOffre {
-	public static String caseId;
-	
-	public void preparationAplOfr(WebDriver driver) throws InterruptedException {
-		JavascriptExecutor js=(JavascriptExecutor)driver;
+	public static String caseId;	
+
+	public void RequestProposals(WebDriver driver, String act, String platform,String dossier) throws InterruptedException, MalformedURLException {
+		
+		//select the file 
+		JavascriptExecutor js =(JavascriptExecutor)driver;
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		WebElement linkFile= driver.findElement(By.xpath("//a[text()='"+dossier+"']"));
+		js.executeScript("arguments[0].scrollIntoView()", linkFile);
+		driver.findElement(By.xpath("//a[text()='"+dossier+"']")).click();
+				
+		Thread.sleep(2000);
+		URL currentUrl = new URL(driver.getCurrentUrl());
+		caseId = (currentUrl.getPath().split("/").length > 4) ? currentUrl.getPath().split("/")[4] : "";
+		String linkListMessage = TestAppelOffre.baseUrl + "/lightning/r/" + caseId + "/related/AppelsOffre__r/view"
+		+"?ws=%2Flightning%2Fr%2FCase%2F"+caseId+"%2Fview"; // frame open as if an user open it		
+		driver.get(linkListMessage);
+		
+		//Scroll to load all the element
+		Thread.sleep(2000);
+		js.executeScript("document.body.style.zoom = '75%'");
+		WebElement scrollBar= driver.findElement(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]"));	
+		for(int i=0;i<=50;i++) {
+			scrollBar.sendKeys(Keys.PAGE_DOWN);
+		}
+		
 		List <WebElement> list =driver.findElements(By.xpath("/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr"));		
+
 		for(int i=1;i<=list.size();i++) {
 			String elements="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[";			
-			String status =driver.findElement(By.xpath(elements+i+"]/td[2]/span/span")).getText();
-			System.out.println(status);
+			String status =driver.findElement(By.xpath(elements+i+"]/td[3]/span/span")).getText();
+			
 			switch(status) {
 				default:
 					break;
 				case "Publié":
+					js.executeScript("document.body.style.zoom = '100%'");
 					driver.findElement(By.xpath(elements+i+"]/th/span/a")).click();					
 					driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 					WebElement cancel=driver.findElement(By.xpath("//button[text()='Annuler']"));
@@ -43,8 +67,11 @@ public class CreateAppelOffre {
 					Thread.sleep(500);
 					break;	
 				case "En attente":
+					js.executeScript("document.body.style.zoom = '100%'");
 					driver.findElement(By.xpath(elements+i+"]/th/span/a")).click();
 					driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+					WebElement abd=driver.findElement(By.xpath("//button[text()='Abandonner']"));
+					js.executeScript("arguments[0].scrollIntoView()", abd);
 					driver.findElement(By.xpath("//button[text()='Abandonner']")).click();
 					driver.findElement(By.xpath("//button[@title='OK']")).click();
 					String xclose="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/div/div/div/ul[2]/li[4]/div[2]/button";
@@ -55,23 +82,7 @@ public class CreateAppelOffre {
 					break;
 			}		
 		}
-	}
-	public void RequestProposals(WebDriver driver, String act, String platform,String dossier) throws InterruptedException, MalformedURLException {
-		
-		//select the file 
-		JavascriptExecutor js =(JavascriptExecutor)driver;
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		WebElement linkFile= driver.findElement(By.xpath("//a[text()='"+dossier+"']"));
-		js.executeScript("arguments[0].scrollIntoView()", linkFile);
-		driver.findElement(By.xpath("//a[text()='"+dossier+"']")).click();
-				
-		Thread.sleep(2000);
-		URL currentUrl = new URL(driver.getCurrentUrl());
-		caseId = (currentUrl.getPath().split("/").length > 4) ? currentUrl.getPath().split("/")[4] : "";
-		String linkListMessage = TestAppelOffre.baseUrl + "/lightning/r/" + caseId + "/related/AppelsOffre__r/view"
-		+"?ws=%2Flightning%2Fr%2FCase%2F"+caseId+"%2Fview"; // frame open as if an user open it		
-		driver.get(linkListMessage);
-		
+		js.executeScript("document.body.style.zoom = '100%'");
 		//New demande
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//a[@title='Nouveau']")).click();
@@ -160,6 +171,7 @@ public class CreateAppelOffre {
 			
 			//Go to the frame request for proposals
 			Thread.sleep(5000);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			driver.findElement(By.xpath(goframe)).click();
 			
 			//checking the status
@@ -168,8 +180,7 @@ public class CreateAppelOffre {
 			String xpsts="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[3]/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-appel_d_offres_-page_d_enregistrement2___-appel-offre__c___-v-i-e-w/forcegenerated-flexipage_appel_d_offres_page_d_enregistrement2_appeloffre__c__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-two-col-equal-header-template-desktop2/div/div[2]/div[1]/slot/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/slot/flexipage-column2[1]/div/slot/flexipage-field[16]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/slot/lightning-formatted-text";
 			String status=driver.findElement(By.xpath(xpsts)).getText();
 			System.out.println(status);	
-			}
-			
+			}			
 		}
 	}
 	public void PropOffre(WebDriver driver) throws InterruptedException, MalformedURLException {
@@ -245,9 +256,7 @@ public class CreateAppelOffre {
 		WebElement sts=driver.findElement(By.xpath(status));
 		js.executeScript("arguments[0].scrollIntoView()",sts);
 		String textsts="/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section/div/div/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-dossier-en-cours___-case___-v-i-e-w/forcegenerated-flexipage_dossierencours_case__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-pinned-header-left-sidebar-two-col-template-desktop2/div/div/div/one-template-workspace/navex-console-tabset2/div/navex-console-tab2[2]/section/div/div[2]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-appel_d_offres_-page_d_enregistrement2___-appel-offre__c___-v-i-e-w/forcegenerated-flexipage_appel_d_offres_page_d_enregistrement2_appeloffre__c__view_js/record_flexipage-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-two-col-equal-header-template-desktop2/div/div[2]/div[1]/slot/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/slot/flexipage-tab2/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/slot/flexipage-column2[1]/div/slot/flexipage-field[16]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/slot/lightning-formatted-text";
-		System.out.println(driver.findElement(By.xpath(textsts)).getText());
-		
-		driver.findElement(By.xpath("//button[text()='Non']")).click();
+		System.out.println(driver.findElement(By.xpath(textsts)).getText());				
 	}
 	
 }
